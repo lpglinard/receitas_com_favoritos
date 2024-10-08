@@ -1,4 +1,4 @@
-# receitas_com_favoritos
+# app_teste
 
 A new Flutter project.
 
