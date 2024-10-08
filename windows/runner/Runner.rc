@@ -89,13 +89,13 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "com.sempreceub" "\0"
-            VALUE "FileDescription", "receitas_com_favoritos" "\0"
+            VALUE "CompanyName", "com.example" "\0"
+            VALUE "FileDescription", "app_teste" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "receitas_com_favoritos" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2024 com.sempreceub. All rights reserved." "\0"
-            VALUE "OriginalFilename", "receitas_com_favoritos.exe" "\0"
-            VALUE "ProductName", "receitas_com_favoritos" "\0"
+            VALUE "InternalName", "app_teste" "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2024 com.example. All rights reserved." "\0"
+            VALUE "OriginalFilename", "app_teste.exe" "\0"
+            VALUE "ProductName", "app_teste" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END
