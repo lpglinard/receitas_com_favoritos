@@ -1,6 +1,6 @@
 {
-    "name": "receitas_com_favoritos",
-    "short_name": "receitas_com_favoritos",
+    "name": "app_teste",
+    "short_name": "app_teste",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
