@@ -1,6 +1,6 @@
-# app_teste
+# app_receitas_com_favoritos
 
-A new Flutter project.
+Projeto Flutter de desenvolvimento de aplicativo de busca de receitas funcionalidade de favoritar receitas desejadas através da utilização de API fornecida pela plataforma Edamam.
 
 ## Getting Started
 

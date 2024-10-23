@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prato_do_dia_app/common/buttons/buttons.dart';
 import '../../common/constants/app_colors.dart';
 import '../../common/constants/app_text_styles.dart';
 
@@ -9,10 +10,12 @@ class SplashPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(children: [
+        // Metade superior da tela
         Expanded(
           child: Stack(
               alignment: Alignment.center,
               children: [
+            // Background da metade superior da tela
             Container(
               alignment: Alignment.center,
               decoration: const BoxDecoration(
@@ -26,9 +29,11 @@ class SplashPage extends StatelessWidget {
                 ),
               ),
             ),
+            // Itens da metade superior da tela
             Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+              // Imagem de chpaéu de chefe
               Container(
                 child: Image.asset('assets/images/chapeu.png',
                   height: 79,
@@ -41,6 +46,7 @@ class SplashPage extends StatelessWidget {
                   color: AppColors.transparente,
                 ),
               ),
+              // Texto da imagem
               Container(
                 child: Text('+ 2.3 Milhões de receitas',
                   style: AppTextStyles.subtituloBold.copyWith(color: AppColors.textoBranco),
@@ -50,10 +56,12 @@ class SplashPage extends StatelessWidget {
           ]),
         ),
 
+        // Metade inferior da tela
         Expanded(
           child: Stack(
               alignment: Alignment.center,
               children: [
+            // Backgprund da metade inferior da tela
             Container(
               alignment: Alignment.center,
               decoration: const BoxDecoration(
@@ -67,8 +75,10 @@ class SplashPage extends StatelessWidget {
                 ),
               ),
             ),
+            // Coluna de itens da metade inferior da tela
             Column(
                 children: [
+                  // Título
                   Container(
                     alignment: Alignment.topCenter,
                     child: Text(
@@ -77,6 +87,7 @@ class SplashPage extends StatelessWidget {
                       style: AppTextStyles.titulo.copyWith(color: AppColors.textoBranco),
                     ),
                   ),
+                  // Subtítulo
                   Container(
                     alignment: Alignment.center,
                     child: Text(
@@ -91,6 +102,7 @@ class SplashPage extends StatelessWidget {
                       color: AppColors.transparente,
                     ),
                   ),
+                  // Botão
                   Stack(
                       alignment: Alignment.center,
                       children: [
@@ -101,24 +113,15 @@ class SplashPage extends StatelessWidget {
                           ),
                         ),
                         Container(
-                          alignment: Alignment.center,
-                          height: 54,
-                          width: 243,
-                          decoration: const BoxDecoration(
-                            color: AppColors.gradienteEscuro,
-                            borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black26,
-                                spreadRadius: 4,
-                                blurRadius: 10,
-                                offset: Offset(0, 3),
-                              )
-                            ]
-                          ),
-                          child: Text(
-                            'Começar',
-                            style: AppTextStyles.subtituloBotao.copyWith(color: AppColors.textoBranco),
+                          child: ElevatedButton(
+                            style: comecar,
+                            child: Text(
+                                'Começar',
+                                style: AppTextStyles.subtituloBotao.copyWith(color: AppColors.textoBranco),
+                            ),
+                            onPressed: () {
+                              Navigator.pushNamed(context, '/home');
+                              },
                           ),
                         ),
                       ]),
@@ -128,6 +131,7 @@ class SplashPage extends StatelessWidget {
                       color: AppColors.transparente,
                     ),
                   ),
+                  // Basge Edamam
                   Container(
                     alignment: Alignment.center,
                     child: Image.asset('assets/images/Edamam_Badge_Transparent.png',
