@@ -9,13 +9,13 @@ class SplashPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(children: [
-        // Metade superior da tela
+      body:
+      Column(children: [
         Expanded(
           child: Stack(
               alignment: Alignment.center,
               children: [
-            // Background da metade superior da tela
+            // ----- Background da metade superior da tela ----- //
             Container(
               alignment: Alignment.center,
               decoration: const BoxDecoration(
@@ -29,39 +29,34 @@ class SplashPage extends StatelessWidget {
                 ),
               ),
             ),
-            // Itens da metade superior da tela
+
+            // ----- Conteúdo da metade superior da tela ----- //
             Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-              // Imagem de chpaéu de chefe
-              Container(
-                child: Image.asset('assets/images/chapeu.png',
-                  height: 79,
-                  width: 79,
-                ),
+
+              // ----- Imagem de chpaéu de chefe ----- //
+              Image.asset('assets/images/chapeu.png',
+                height: 79,
+                width: 79,
               ),
-              SizedBox(
-                height: 12.0,
-                child: Container(
-                  color: AppColors.transparente,
-                ),
-              ),
-              // Texto da imagem
-              Container(
-                child: Text('+ 2.3 Milhões de receitas',
-                  style: AppTextStyles.subtituloBold.copyWith(color: AppColors.textoBranco),
-                ),
+
+                  const SizedBox(height: 12.0),
+
+              // ----- Texto da imagem ----- //
+              Text('+ 2.3 Milhões de receitas',
+                style: AppTextStyles.subtituloBold.copyWith(color: AppColors.textoBranco),
               ),
             ]),
           ]),
         ),
 
-        // Metade inferior da tela
         Expanded(
           child: Stack(
               alignment: Alignment.center,
               children: [
-            // Backgprund da metade inferior da tela
+
+            // ----- Backgprund da metade inferior da tela ----- //
             Container(
               alignment: Alignment.center,
               decoration: const BoxDecoration(
@@ -75,73 +70,58 @@ class SplashPage extends StatelessWidget {
                 ),
               ),
             ),
-            // Coluna de itens da metade inferior da tela
-            Column(
-                children: [
-                  // Título
-                  Container(
-                    alignment: Alignment.topCenter,
-                    child: Text(
-                      "PraTo do Dia",
-                      textAlign: TextAlign.center,
-                      style: AppTextStyles.titulo.copyWith(color: AppColors.textoBranco),
-                    ),
-                  ),
-                  // Subtítulo
-                  Container(
-                    alignment: Alignment.center,
-                    child: Text(
-                      "\nUma forma simples de encontrar\na receita perfeita\n",
-                      textAlign: TextAlign.center,
-                      style: AppTextStyles.subtitulo.copyWith(color: AppColors.textoBranco),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 35.0,
-                    child: Container(
-                      color: AppColors.transparente,
-                    ),
-                  ),
-                  // Botão
-                  Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        SizedBox(
-                          height: 54.0,
-                          child: Container(
-                            color: AppColors.transparente,
-                          ),
-                        ),
-                        Container(
-                          child: ElevatedButton(
-                            style: comecar,
-                            child: Text(
-                                'Começar',
-                                style: AppTextStyles.subtituloBotao.copyWith(color: AppColors.textoBranco),
-                            ),
-                            onPressed: () {
-                              Navigator.pushNamed(context, '/home');
-                              },
-                          ),
-                        ),
-                      ]),
-                  SizedBox(
-                    height: 60.0,
-                    child: Container(
-                      color: AppColors.transparente,
-                    ),
-                  ),
-                  // Basge Edamam
-                  Container(
-                    alignment: Alignment.center,
-                    child: Image.asset('assets/images/Edamam_Badge_Transparent.png',
-                      height: 34,
-                      width: 170,),
-                  ),
-            ]),
-          ]),
+
+            // ----- Conteúdo da metade inferior da tela ----- //
+            Column(children: [
+              // ----- Título do App ----- //
+              Container(
+                alignment: Alignment.topCenter,
+                child: Text(
+                  "PraTo do Dia",
+                  textAlign: TextAlign.center,
+                  style: AppTextStyles.titulo.copyWith(color: AppColors.textoBranco),
+                ),
+              ),
+              // ----- Subtítulo/Texto introdutório ----- //
+              Container(
+                alignment: Alignment.center,
+                child: Text(
+                  "\nUma forma simples de encontrar\na receita perfeita\n",
+                  textAlign: TextAlign.center,
+                  style: AppTextStyles.subtitulo.copyWith(color: AppColors.textoBranco),
+                ),
+              ),
+
+              const SizedBox(height: 35.0),
+
+              // ----- Botão de Login ----- //
+              ElevatedButton(
+                style: comecar,
+                child: Text("Começar",
+                  style: AppTextStyles.subtituloBotao
+                      .copyWith(color: AppColors.textoBranco),
+                ),
+                onPressed: () {
+                  Navigator.pushNamed(context, '/login');
+                },
+              ),
+
+              const SizedBox(height: 60.0),
+
+              // ----- Badge de Placeholder da Edamam ----- //
+              Container(
+                alignment: Alignment.center,
+                child: Image.asset('assets/images/Edamam_Badge_Transparent.png',
+                  height: 34,
+                  width: 170,),
+              ),
+            ]
+            ),
+          ]
+          ),
         ),
-      ]),
+      ]
+      ),
     );
   }
 }

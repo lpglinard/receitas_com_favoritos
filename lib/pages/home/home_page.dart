@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import '../../common/buttons/buttons.dart';
 import '../../common/constants/app_colors.dart';
 import '../../common/constants/app_text_styles.dart';
+import '../../common/forms/form_result_decoration.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -8,161 +10,136 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(children: [
-        SizedBox(
-          height: 64.0,
-          child: Container(
-            color: AppColors.transparente,
-          ),
-        ),
-        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-          Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-            Container(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                'Olá Davi',
-                style:
-                    AppTextStyles.titulo.copyWith(color: AppColors.textoPreto),
-              ),
-            ),
-            Container(
-              padding: const EdgeInsets.fromLTRB(30, 0, 0, 0),
-              alignment: Alignment.centerLeft,
-              child: Text(
-                'Qual o prato de hoje?',
-                style: AppTextStyles.emailSenha.copyWith(color: Colors.grey),
-              ),
-            ),
-          ]),
-          Container(
-            padding: const EdgeInsets.fromLTRB(0, 0, 30, 0),
-            alignment: Alignment.centerRight,
-            child: Image.asset(
-              'assets/images/picture.png',
-              height: 40,
-              width: 40,
-            ),
-          ),
-        ]),
-        SizedBox(
-          height: 30.0,
-          child: Container(
-            color: AppColors.transparente,
-          ),
-        ),
-        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-          Container(
-            child: Container(
-              padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
-              margin: const EdgeInsets.fromLTRB(30, 0, 30, 0),
-              alignment: Alignment.centerLeft,
-              height: 40,
-              width: 255,
-              decoration: BoxDecoration(
-                color: AppColors.transparente,
-                borderRadius: const BorderRadius.all(
-                  Radius.circular(10.0),
+      body: Column(
+        children: [
+          const SizedBox(height: 64.0),
+
+          // ----- Textos do topo da página ----- //
+          Padding(
+            padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
+            child: Column(
+              children: [
+                Container(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'Qual o prato de hoje?',
+                    style: AppTextStyles.titulo.copyWith(color: AppColors.textoPreto),
+                  ),
                 ),
-                border: Border.all(width: 1.5, color: Colors.grey),
+                Container(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'Busque suas receitas e as favorite\nfacilmente em alguns passos',
+                    style: AppTextStyles.emailSenha.copyWith(color: Colors.grey),
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+          const SizedBox(height: 30.0),
+
+          // ----- Campo de pesquisa por receitas ----- //
+          Padding(
+            padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
+            child: Form(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    TextFormField(
+                      decoration: getResultDecoration("Procurar receitas"),
+                    ),
+
+                    const SizedBox(height: 15.0),
+
+                    ElevatedButton(
+                      style: pesquisar,
+                      child: Text(
+                        "Pesquisar",
+                        style: AppTextStyles.subtituloBotao.copyWith(color: AppColors.textoBranco),
+                      ),
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/pesquisar');
+                      },
+                    ),
+                  ],
+                ),
               ),
-              child: Row(
+            ),
+          ),
+
+          const SizedBox(height: 20.0),
+
+          // ----- Campo resultados da pesquisa ----- //
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
                 children: [
                   Container(
-                    padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
-                    child: Image.asset(
-                      'assets/images/search_icon.png',
-                      height: 18,
-                      width: 18,
+                    padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      'Últimas buscas',
+                      style: AppTextStyles.subtituloBold.copyWith(color: AppColors.textoPreto),
                     ),
                   ),
-                  Text(
-                    'Procurar receita',
-                    style:
-                        AppTextStyles.regularFina.copyWith(color: Colors.grey),
+
+                  const SizedBox(height: 10.0),
+
+
+                  Container(
+                    padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      'Seu histórico de pesquisa aparecerá aqui',
+                      style: AppTextStyles.regularFina.copyWith(color: Colors.grey),
+                    ),
                   ),
                 ],
               ),
             ),
           ),
-          Container(
-            padding: const EdgeInsets.fromLTRB(0, 0, 30, 0),
-            alignment: Alignment.centerRight,
-            child: Image.asset(
-              'assets/images/filter.png',
-              height: 40,
-              width: 40,
-            ),
+        ],
+      ),
+
+      // ----- Bottom navegation bar ----- //
+      bottomNavigationBar: BottomAppBar(
+        height: 70,
+        color: AppColors.gradienteClaro,
+        child: IconTheme(
+          data: const IconThemeData(color: Colors.white),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              IconButton(
+                icon: const Icon(
+                  Icons.home,
+                  size: 30,
+                ),
+                onPressed: () {},
+              ),
+              IconButton(
+                icon: const Icon(
+                  Icons.bookmark_outline,
+                  size: 30,
+                ),
+                onPressed: () {
+                  Navigator.pushNamed(context, '/favorites');
+                },
+              ),
+              IconButton(
+                icon: const Icon(
+                  Icons.person_outlined,
+                  size: 30,
+                ),
+                onPressed: () {
+                  Navigator.pushNamed(context, '/profile');
+                },
+              ),
+            ],
           ),
-        ]),
-        SizedBox(
-          height: 20.0,
-          child: Container(
-            color: AppColors.transparente,
-          ),
         ),
-        Expanded(
-          child: Column(children: [
-            Container(
-              padding: const EdgeInsets.fromLTRB(30, 0, 0, 0),
-              alignment: Alignment.centerLeft,
-              child: Text(
-                'Últimas buscas',
-                style: AppTextStyles.subtituloBold
-                    .copyWith(color: AppColors.textoPreto),
-              ),
-            ),
-            SizedBox(
-              height: 10.0,
-              child: Container(
-                color: AppColors.transparente,
-              ),
-            ),
-            Container(
-              padding: const EdgeInsets.fromLTRB(30, 0, 0, 0),
-              alignment: Alignment.centerLeft,
-              child: Text(
-                'Seu histórico de pesquisa aparecerá aqui',
-                style: AppTextStyles.regularFina.copyWith(color: Colors.grey),
-              ),
-            ),
-          ]),
-        ),
-        Container(
-          height: 110,
-          alignment: Alignment.center,
-          child: Stack(children: [
-            Container(
-              color: AppColors.gradienteClaro,
-            ),
-            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-              Container(
-                padding: const EdgeInsets.fromLTRB(50, 39, 0, 0),
-                child: Image.asset(
-                  'assets/images/home_icon.png',
-                  height: 24,
-                  width: 24,
-                ),
-              ),
-              Container(
-                padding: const EdgeInsets.fromLTRB(0, 39, 0, 0),
-                child: Image.asset(
-                  'assets/images/favorite_icon.png',
-                  height: 24,
-                  width: 24,
-                ),
-              ),
-              Container(
-                padding: const EdgeInsets.fromLTRB(0, 39, 50, 0),
-                child: Image.asset(
-                  'assets/images/profile_icon.png',
-                  height: 24,
-                  width: 24,
-                ),
-              ),
-            ]),
-          ]),
-        ),
-      ]),
+      ),
     );
   }
 }
