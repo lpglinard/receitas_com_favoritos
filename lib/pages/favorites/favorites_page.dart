@@ -147,6 +147,62 @@ class FavoritesPage extends StatelessWidget {
 
                   const SizedBox(height: 15.0),
 
+                  Container(
+                    alignment: Alignment.center,
+                    width: 400.0,
+                    height: 150.0,
+                    decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(10.0),
+                      ),
+                      color: AppColors.cinzaClaro,
+                      shape: BoxShape.rectangle,
+                      border: Border.all(
+                        color: AppColors.gradienteClaro,
+                        width: 1.0,
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(height: 15.0),
+
+                  Container(
+                    alignment: Alignment.center,
+                    width: 400.0,
+                    height: 150.0,
+                    decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(10.0),
+                      ),
+                      color: AppColors.cinzaClaro,
+                      shape: BoxShape.rectangle,
+                      border: Border.all(
+                        color: AppColors.gradienteClaro,
+                        width: 1.0,
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(height: 15.0),
+
+                  Container(
+                    alignment: Alignment.center,
+                    width: 400.0,
+                    height: 150.0,
+                    decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(10.0),
+                      ),
+                      color: AppColors.cinzaClaro,
+                      shape: BoxShape.rectangle,
+                      border: Border.all(
+                        color: AppColors.gradienteClaro,
+                        width: 1.0,
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(height: 15.0),
                 ],
               ),
             ),
@@ -169,7 +225,7 @@ class FavoritesPage extends StatelessWidget {
                   size: 30,
                 ),
                 onPressed: () {
-                  Navigator.pushNamed(context, '/retornaMenu');
+                  Navigator.pushNamed(context, '/home');
                 },
               ),
               IconButton(

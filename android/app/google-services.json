@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "264457314789",
+    "project_id": "prato-do-dia-15876",
+    "storage_bucket": "prato-do-dia-15876.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:264457314789:android:cef78c8378ae06b92c0f0c",
+        "android_client_info": {
+          "package_name": "com.example.app_teste"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCoDZN8lYnQ3c_44FiR0QrcfRewhVV5utI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

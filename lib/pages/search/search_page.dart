@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:prato_do_dia_app/common/forms/form_result_decoration.dart';
-import '../../common/buttons/buttons.dart';
 import '../../common/constants/app_colors.dart';
 import '../../common/constants/app_text_styles.dart';
-import '../../common/forms/form_decoration.dart';
 import '../../common/forms/form_search_result_decoration.dart';
 
 class SearchPage extends StatelessWidget {
@@ -13,85 +10,86 @@ class SearchPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(children: [
-        SizedBox(
-          height: 64.0,
-          child: Container(
-            color: AppColors.transparente,
-          ),
-        ),
+        const SizedBox(height: 64.0),
         Padding(
           padding: const EdgeInsets.fromLTRB(15, 0, 30, 0),
-          child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                IconButton(
-                  icon: const Icon(Icons.arrow_back),
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/retornaMenu');
-                  },
-                ),
-                Text(
-                  'Receitas encontradas',
-                  style:
-                  AppTextStyles.tituloIntermediario.copyWith(color: AppColors.textoPreto),
-                ),
-              ]),
+          child:
+              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+            IconButton(
+              icon: const Icon(Icons.arrow_back),
+              onPressed: () {
+                Navigator.pushNamed(context, '/retornaMenu');
+              },
+            ),
+            Text(
+              'Receitas encontradas',
+              style: AppTextStyles.tituloIntermediario
+                  .copyWith(color: AppColors.textoPreto),
+            ),
+          ]),
         ),
-        SizedBox(
-          height: 20.0,
-          child: Container(
-            color: AppColors.transparente,
-          ),
-        ),
-
+        const SizedBox(height: 20.0),
         Padding(
           padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
           child: Form(
-            child: SingleChildScrollView(
-              child:
-                  TextFormField(
-                    decoration: getSearchResultDecoration("Frango"),
-                  ),
-            )
+            child: TextFormField(
+              decoration: getSearchResultDecoration("Frango"),
+            ),
           ),
         ),
-
-
-        SizedBox(
-          height: 20.0,
-          child: Container(
-            color: AppColors.transparente,
+        const SizedBox(height: 20.0),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Resultados',
+                  style: AppTextStyles.subtitulo
+                      .copyWith(color: AppColors.textoPreto),
+                ),
+              ),
+              Text(
+                '8 resultados',
+                style: AppTextStyles.emailSenha
+                    .copyWith(color: AppColors.cinzaEscuro),
+              ),
+            ],
           ),
         ),
+        const SizedBox(height: 15.0),
         Expanded(
-          child:
-          Column(children: [
-            Padding(
-              padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
-              child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      'Resultados',
-                      style: AppTextStyles.subtitulo
-                          .copyWith(color: AppColors.textoPreto),
+          child: SingleChildScrollView(
+            child: Column(children: [
+              Padding(
+                padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
+                child: Column(
+                  children: [
+                    Container(
+                      alignment: Alignment.center,
+                      width: 400.0,
+                      height: 150.0,
+                      decoration: BoxDecoration(
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(10.0),
+                        ),
+                        color: AppColors.cinzaClaro,
+                        shape: BoxShape.rectangle,
+                        border: Border.all(
+                          color: AppColors.gradienteClaro,
+                          width: 1.0,
+                        ),
+                      ),
                     ),
-                  ),
-                  Text(
-                    '235 resultados',
-                    style: AppTextStyles.emailSenha
-                        .copyWith(color: AppColors.cinzaEscuro),
-                  ),
-                ],
+                    const SizedBox(height: 15.0),
+                  ],
+                ),
               ),
-            ),
-            SizedBox(
-              height: 15.0,
-              child: Container(
-                color: AppColors.transparente,
-              ),
-            ),
-          ]),
+              const SizedBox(height: 15.0),
+            ]),
+          ),
         ),
       ]),
     );
