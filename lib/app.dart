@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:prato_do_dia_app/pages/favorites/favorites_page.dart';
 import 'package:prato_do_dia_app/pages/login/login_page.dart';
@@ -14,13 +15,29 @@ class App extends StatelessWidget {
     return MaterialApp(
       home: const SplashPage(),
       routes: {
-        '/login': (context) => const LoginPage(),
+        '/login': (context) => const Autenticador(),
         '/home': (context) => const HomePage(),
         '/pesquisar': (context) => const SearchPage(),
-        '/retornaMenu': (context) => const HomePage(),
         '/favorites': (context) => const FavoritesPage(),
         '/profile': (context) => const ProfilePage(),
-        '/sair': (context) => const SplashPage(),
+      },
+    );
+  }
+}
+
+class Autenticador extends StatelessWidget {
+  const Autenticador({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<User?>(
+      stream: FirebaseAuth.instance.userChanges(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return const HomePage();
+        } else {
+          return const LoginPage();
+        }
       },
     );
   }
