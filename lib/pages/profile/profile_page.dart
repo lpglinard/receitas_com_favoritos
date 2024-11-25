@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:prato_do_dia_app/common/forms/form_decoration.dart';
+import 'package:prato_do_dia_app/services/autenticacao_servico.dart';
 import '../../common/buttons/buttons.dart';
 import '../../common/constants/app_colors.dart';
 import '../../common/constants/app_text_styles.dart';
@@ -21,13 +23,12 @@ class ProfilePage extends StatelessWidget {
           // ----- Texto do topo da página ----- //
           Padding(
             padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
-            child:
-              Text(
-                'Meu perfil',
-                style: AppTextStyles.tituloIntermediarioBold.copyWith(
-                  color: AppColors.gradienteEscuro,
-                ),
+            child: Text(
+              'Meu perfil',
+              style: AppTextStyles.tituloIntermediarioBold.copyWith(
+                color: AppColors.gradienteEscuro,
               ),
+            ),
           ),
 
           const SizedBox(height: 20.0),
@@ -41,7 +42,6 @@ class ProfilePage extends StatelessWidget {
                     Stack(
                       alignment: Alignment.center,
                       children: [
-
                         // ----- Círculos de decoração da foto de perfil ----- //
                         Container(
                           width: 150.0,
@@ -127,7 +127,7 @@ class ProfilePage extends StatelessWidget {
 
                         const SizedBox(height: 30.0),
 
-                        // ----- Botão de atualização ----- //
+                        // ----- Botão atualizar dados ----- //
                         ElevatedButton(
                           style: atualizarDados,
                           child: Text(
@@ -136,7 +136,177 @@ class ProfilePage extends StatelessWidget {
                               color: AppColors.textoBranco,
                             ),
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            // ----- modal de alteração dos dados ----- //
+                            showModalBottomSheet(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return SizedBox(
+                                    height: 350,
+                                    child: Column(
+                                      children: [
+                                        // ----- Ícone de fechar o modal ----- //
+                                        Container(
+                                          alignment: Alignment.centerRight,
+                                          child: IconButton(
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                            },
+                                            icon:
+                                                const Icon(Icons.close_rounded),
+                                          ),
+                                        ),
+
+                                        // ----- campos dos dados que serão alterados ----- //
+                                        Padding(
+                                          padding: const EdgeInsets.fromLTRB(
+                                              15, 0, 15, 0),
+                                          child: Column(
+                                            children: [
+                                              // ----- campo alterar email ----- //
+                                              Container(
+                                                padding:
+                                                    const EdgeInsets.fromLTRB(
+                                                        10, 0, 0, 0),
+                                                alignment: Alignment.centerLeft,
+                                                child: Text(
+                                                  'Novo email',
+                                                  style: AppTextStyles.subtitulo
+                                                      .copyWith(
+                                                          color: AppColors
+                                                              .gradienteClaro),
+                                                ),
+                                              ),
+
+                                              const SizedBox(height: 5.0),
+
+                                              TextFormField(
+                                                decoration: getInputDecoration(
+                                                    "Insira o novo email"),
+                                                validator: (String? value) {
+                                                  if (value == null) {
+                                                    return "Campo obrigatório";
+                                                  }
+                                                  if (value.length < 6) {
+                                                    return "O email é muito curto";
+                                                  }
+                                                  if (!value.contains("@")) {
+                                                    return "O email não é válido";
+                                                  }
+                                                  return null;
+                                                },
+                                              ),
+
+                                              const SizedBox(height: 15.0),
+
+                                              // ----- campo alterar senha ----- //
+                                              Container(
+                                                alignment: Alignment.centerLeft,
+                                                child: Text(
+                                                  'Nova senha',
+                                                  style: AppTextStyles.subtitulo
+                                                      .copyWith(
+                                                          color: AppColors
+                                                              .gradienteClaro),
+                                                ),
+                                              ),
+
+                                              const SizedBox(height: 5.0),
+
+                                              TextFormField(
+                                                decoration: InputDecoration(
+                                                  labelText:
+                                                      "Insira a nova senha",
+                                                  labelStyle: const TextStyle(
+                                                    color: AppColors
+                                                        .gradienteClaro,
+                                                    fontSize: 15,
+                                                  ),
+                                                  contentPadding:
+                                                      const EdgeInsets.fromLTRB(
+                                                          8, 8, 8, 8),
+                                                  border: OutlineInputBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10),
+                                                  ),
+                                                  enabledBorder:
+                                                      OutlineInputBorder(
+                                                    borderSide: const BorderSide(
+                                                        color: AppColors
+                                                            .gradienteClaro),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10),
+                                                  ),
+                                                  focusedBorder:
+                                                      OutlineInputBorder(
+                                                    borderSide:
+                                                        const BorderSide(
+                                                            color: AppColors
+                                                                .gradienteClaro,
+                                                            width: 2),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10),
+                                                  ),
+                                                  errorBorder:
+                                                      OutlineInputBorder(
+                                                    borderSide:
+                                                        const BorderSide(
+                                                            color: Colors.red),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10),
+                                                  ),
+                                                  focusedErrorBorder:
+                                                      OutlineInputBorder(
+                                                    borderSide:
+                                                        const BorderSide(
+                                                            color: Colors.red),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10),
+                                                  ),
+                                                ),
+                                                obscureText: true,
+                                                validator: (String? value) {
+                                                  if (value == null) {
+                                                    return "Campo obrigatório";
+                                                  }
+                                                  if (value.length < 8) {
+                                                    return "A senha é muito curta";
+                                                  }
+                                                  return null;
+                                                },
+                                              ),
+
+                                              const SizedBox(height: 8.0),
+                                            ],
+                                          ),
+                                        ),
+
+                                        const SizedBox(height: 20.0),
+
+                                        // ----- Botão de atualizar os dados inceridos ----- //
+                                        ElevatedButton(
+                                          style: atualizarDados,
+                                          child: Text(
+                                            "Atualizar",
+                                            style: AppTextStyles.emailSenha
+                                                .copyWith(
+                                              color: AppColors.textoBranco,
+                                            ),
+                                          ),
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                });
+                          },
                         ),
 
                         const SizedBox(height: 20.0),
@@ -151,7 +321,7 @@ class ProfilePage extends StatelessWidget {
                             ),
                           ),
                           onPressed: () {
-                            Navigator.pushNamed(context, '/sair');
+                            AutenticacaoServico().deslogar();
                           },
                         ),
                       ],
@@ -179,7 +349,7 @@ class ProfilePage extends StatelessWidget {
                   size: 30,
                 ),
                 onPressed: () {
-                  Navigator.pushNamed(context, '/retornaMenu');
+                  Navigator.pushNamed(context, '/home');
                 },
               ),
               IconButton(
