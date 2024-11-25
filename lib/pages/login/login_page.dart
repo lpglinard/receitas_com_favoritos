@@ -21,6 +21,7 @@ class _LoginPageState extends State<LoginPage> {
   final _formkey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _senhaController = TextEditingController();
+  final TextEditingController _senhaNovamenteController = TextEditingController();
   final TextEditingController _nomeController = TextEditingController();
   final AutenticacaoServico _autenticacaoServico = AutenticacaoServico();
 
@@ -102,62 +103,64 @@ class _LoginPageState extends State<LoginPage> {
 
               const SizedBox(height: 5.0),
 
-              TextFormField(
-                controller: _senhaController,
-                decoration: InputDecoration(
-                  labelText: "Insira sua senha",
-                  labelStyle: const TextStyle(
-                    color: AppColors.gradienteClaro,
-                    fontSize: 15,
-                  ),
-                  contentPadding: const EdgeInsets.fromLTRB(8, 8, 8, 8),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide:
-                        const BorderSide(color: AppColors.gradienteClaro),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(
-                        color: AppColors.gradienteClaro, width: 2),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  errorBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(color: Colors.red),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  focusedErrorBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(color: Colors.red),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  suffixIcon: InkWell(
-                    borderRadius: BorderRadius.circular(20.0),
-                    onTap: () {
-                      log("Pressed");
-                      setState(() {
-                        _passwordIsHidden = !_passwordIsHidden;
-                      });
-                    },
-                    child: Icon(
-                      (_passwordIsHidden)
-                          ? Icons.visibility
-                          : Icons.visibility_off,
+              Center(
+                child: TextFormField(
+                  controller: _senhaController,
+                  decoration: InputDecoration(
+                    labelText: "Insira sua senha",
+                    labelStyle: const TextStyle(
                       color: AppColors.gradienteClaro,
+                      fontSize: 15,
+                    ),
+                    contentPadding: const EdgeInsets.fromLTRB(8, 8, 8, 8),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide:
+                          const BorderSide(color: AppColors.gradienteClaro),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(
+                          color: AppColors.gradienteClaro, width: 2),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    errorBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(color: Colors.red),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    focusedErrorBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(color: Colors.red),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    suffixIcon: InkWell(
+                      borderRadius: BorderRadius.circular(20.0),
+                      onTap: () {
+                        log("Pressed");
+                        setState(() {
+                          _passwordIsHidden = !_passwordIsHidden;
+                        });
+                      },
+                      child: Icon(
+                        (_passwordIsHidden)
+                            ? Icons.visibility
+                            : Icons.visibility_off,
+                        color: AppColors.gradienteClaro,
+                      ),
                     ),
                   ),
+                  obscureText: _passwordIsHidden,
+                  validator: (String? value) {
+                    if (value == null) {
+                      return "Campo obrigatório";
+                    }
+                    if (value.length < 8) {
+                      return "A senha é muito curta";
+                    }
+                    return null;
+                  },
                 ),
-                obscureText: _passwordIsHidden,
-                validator: (String? value) {
-                  if (value == null) {
-                    return "Campo obrigatório";
-                  }
-                  if (value.length < 8) {
-                    return "A senha é muito curta";
-                  }
-                  return null;
-                },
               ),
 
               const SizedBox(height: 8.0),
@@ -191,7 +194,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     const SizedBox(height: 5.0),
                     TextFormField(
-                      controller: _senhaController,
+                      controller: _senhaNovamenteController,
                       decoration: InputDecoration(
                         labelText: "Insire a senha novamente",
                         labelStyle: const TextStyle(
