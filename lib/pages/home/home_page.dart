@@ -1,11 +1,55 @@
+import 'dart:convert';
+import 'dart:math';
 import 'package:flutter/material.dart';
-import '../../common/buttons/buttons.dart';
+import 'package:provider/provider.dart';
+import 'package:share_plus/share_plus.dart';
+import '../../Model/DatabaseHelper.dart';
+import '../../Model/Receipt.dart';
+import '../../Services/EdamamApiService.dart';
 import '../../common/constants/app_colors.dart';
 import '../../common/constants/app_text_styles.dart';
-import '../../common/forms/form_result_decoration.dart';
+import 'package:http/http.dart' as http;
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+TextEditingController textEditingController = TextEditingController();
+
+class _HomePageState extends State<HomePage> {
+  TextEditingController textEditingController = TextEditingController();
+  EdamamApiService edamamApi = EdamamApiService();
+  List<dynamic> recipes = [];
+
+  static List<String> searchQueries = [
+    'pasta',
+    'chicken',
+    'soup',
+    'vegan',
+    'dessert',
+    'meat',
+    'fish',
+    'cake',
+    'kofte',
+    'egg',
+    'cheese',
+    'salad',
+    'tomato',
+    'burger',
+    'pizza',
+    'patato'
+  ];
+
+  Future<void> fetchRecipes() async {
+    final response = await http.get(Uri.parse(edamamApi.url));
+    final json = jsonDecode(response.body);
+    setState(() {
+      recipes = json['hits'].map((hit) => hit['recipe']).toList();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,14 +67,16 @@ class HomePage extends StatelessWidget {
                   alignment: Alignment.centerLeft,
                   child: Text(
                     'Qual o prato de hoje?',
-                    style: AppTextStyles.titulo.copyWith(color: AppColors.textoPreto),
+                    style: AppTextStyles.titulo
+                        .copyWith(color: AppColors.textoPreto),
                   ),
                 ),
                 Container(
                   alignment: Alignment.centerLeft,
                   child: Text(
                     'Busque suas receitas e as favorite\nfacilmente em alguns passos',
-                    style: AppTextStyles.emailSenha.copyWith(color: Colors.grey),
+                    style:
+                        AppTextStyles.emailSenha.copyWith(color: Colors.grey),
                   ),
                 ),
               ],
@@ -46,21 +92,67 @@ class HomePage extends StatelessWidget {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    TextFormField(
-                      decoration: getResultDecoration("Procurar receitas"),
-                    ),
-
+                    TextField(
+                        cursorColor: AppColors.gradienteEscuro,
+                        onChanged: (value) async {
+                          await fetchRecipes();
+                          setState(() {
+                            edamamApi.query = value;
+                          });
+                        },
+                        decoration: InputDecoration(
+                            enabledBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: AppColors.gradienteClaro),
+                                borderRadius: BorderRadius.circular(10.0)),
+                            border: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: AppColors.gradienteClaro),
+                                borderRadius: BorderRadius.circular(10.0)),
+                            label: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text('Procurar receitas',
+                                    style: TextStyle(
+                                        color: AppColors.gradienteClaro)
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Icon(Icons.search, color: AppColors.gradienteClaro),
+                                ),
+                              ],
+                            ),
+                            suffix: IconButton(
+                              onPressed: () async {
+                                setState(() {
+                                  edamamApi.query = textEditingController.text;
+                                });
+                                await fetchRecipes();
+                                textEditingController.clear();
+                              },
+                              icon: Icon(Icons.search,
+                                  color: AppColors.gradienteClaro),
+                            )),
+                        controller: textEditingController,
+                        style: TextStyle(color: AppColors.gradienteClaro)),
                     const SizedBox(height: 15.0),
-
-                    ElevatedButton(
-                      style: pesquisar,
-                      child: Text(
-                        "Pesquisar",
-                        style: AppTextStyles.subtituloBotao.copyWith(color: AppColors.textoBranco),
-                      ),
-                      onPressed: () {
-                        Navigator.pushNamed(context, '/pesquisar');
-                      },
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        OutlinedButton(
+                          onPressed: () {
+                            setState(() {
+                              int randomIndex =
+                                  Random().nextInt(searchQueries.length);
+                              edamamApi.query = searchQueries[randomIndex];
+                              fetchRecipes();
+                            });
+                          },
+                          child: Text("Receita aleatória",
+                              style:
+                                  TextStyle(color: AppColors.gradienteClaro)),
+                        ),
+                      ],
                     ),
                   ],
                 ),
@@ -68,33 +160,115 @@ class HomePage extends StatelessWidget {
             ),
           ),
 
-          const SizedBox(height: 20.0),
-
-          // ----- Campo resultados da pesquisa ----- //
+          // ----- Campo receitas aleatórias ----- //
           Expanded(
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  Container(
-                    padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      'Últimas buscas',
-                      style: AppTextStyles.subtituloBold.copyWith(color: AppColors.textoPreto),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.6,
+                    child: ListView.builder(
+                      itemCount: recipes.length,
+                      itemBuilder: (context, index) {
+                        List<Color> buttonColors =
+                            List.filled(recipes.length, Colors.indigo);
+                        final recipe = recipes[index];
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: ExpansionTile(
+                            subtitle: Text(
+                                "${recipe['calories'].toString().substring(0, 7)} kcal ",
+                                style: TextStyle(color: AppColors.cinzaEscuro)),
+                            title: Text(recipe['label'].toString(),
+                                style:
+                                    TextStyle(color: AppColors.gradienteClaro)),
+                            children: [
+                              Card(
+                                color: AppColors.cinzaClaro,
+                                child: Column(
+                                  children: [
+                                    ListTile(
+                                      trailing: IconButton(
+                                        onPressed: () async {
+                                          await Provider.of<DatabaseHelper3>(
+                                                  context,
+                                                  listen: false)
+                                              .add(
+                                                  Receipt(
+                                                      Name: recipe['label'],
+                                                      ingredients: recipe[
+                                                              'ingredientLines']
+                                                          .toString(),
+                                                      urlImage: recipe['image']
+                                                          .toString()));
+                                          setState(() {
+                                            buttonColors[index] = Colors.pink;
+                                          });
+                                        },
+                                        icon: Icon(Icons.bookmark_outline,
+                                            color: AppColors.gradienteClaro),
+                                      ),
+                                      title: Text(recipe['label']),
+                                      subtitle: Text(recipe['source']),
+                                    ),
+                                    Column(
+                                      children: [
+                                        Image.network(recipe['image']),
+                                        const SizedBox(height: 10.0),
+                                        Text("Ingredientes",
+                                            style: TextStyle(
+                                              color: AppColors.gradienteEscuro,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 20)),
+                                        ListView.builder(
+                                          shrinkWrap: true,
+                                          itemCount:
+                                              recipe['ingredientLines'].length,
+                                          itemBuilder: (context, index) {
+                                            return Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Text(
+                                                ' - ' +
+                                                    recipe['ingredientLines']
+                                                        [index],
+                                                style: TextStyle(
+                                                    color: AppColors
+                                                        .gradienteEscuro,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                            );
+                                          },
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
+                                          child: Align(
+                                            alignment: Alignment.bottomRight,
+                                            child: IconButton(
+                                                onPressed: () async {
+                                                  await Share.share(
+                                                      '${recipe['label']}\n${recipe['ingredientLines'].toString().replaceAll('[', '   ').toString().replaceAll(']', '')}');
+                                                },
+                                                icon: Icon(
+                                                  Icons.share,
+                                                  color: AppColors.gradienteClaro,
+                                                  size: 35,
+                                                )),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
                     ),
                   ),
-
                   const SizedBox(height: 10.0),
-
-
-                  Container(
-                    padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      'Seu histórico de pesquisa aparecerá aqui',
-                      style: AppTextStyles.regularFina.copyWith(color: Colors.grey),
-                    ),
-                  ),
                 ],
               ),
             ),

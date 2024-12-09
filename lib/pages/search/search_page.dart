@@ -18,7 +18,7 @@ class SearchPage extends StatelessWidget {
             IconButton(
               icon: const Icon(Icons.arrow_back),
               onPressed: () {
-                Navigator.pushNamed(context, '/retornaMenu');
+                Navigator.pushNamed(context, '/home');
               },
             ),
             Text(

@@ -39,73 +39,6 @@ class ProfilePage extends StatelessWidget {
                 padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
                 child: Column(
                   children: [
-                    Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        // ----- Círculos de decoração da foto de perfil ----- //
-                        Container(
-                          width: 150.0,
-                          height: 150.0,
-                          decoration: BoxDecoration(
-                            color: AppColors.transparente,
-                            shape: BoxShape.circle,
-                            border: Border.all(
-                              color: AppColors.cinzaEscuro,
-                              width: 1.0,
-                            ),
-                          ),
-                        ),
-                        Container(
-                          width: 160.0,
-                          height: 160.0,
-                          decoration: BoxDecoration(
-                            color: AppColors.transparente,
-                            shape: BoxShape.circle,
-                            border: Border.all(
-                              color: AppColors.cinzaClaro,
-                              width: 1.0,
-                            ),
-                          ),
-                        ),
-
-                        // ----- Foto de perfil ----- //
-                        Container(
-                          height: 130.0,
-                          width: 130.0,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(65.0),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withOpacity(0.45),
-                                blurRadius: 8.0,
-                                offset: const Offset(4, 6),
-                              ),
-                            ],
-                          ),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(65.0),
-                            child: Image.asset(
-                              "assets/images/picture.png",
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-
-                    const SizedBox(height: 5.0),
-
-                    // ----- Nome do usuário ---- //
-                    Text(
-                      'Davi Ribeiro',
-                      style: AppTextStyles.tituloMenor.copyWith(
-                        color: AppColors.gradienteEscuro,
-                      ),
-                    ),
-
-                    const SizedBox(height: 10.0),
-
                     // ----- Dados do perfil ----- //
                     Column(
                       children: [
@@ -114,7 +47,7 @@ class ProfilePage extends StatelessWidget {
                         // ----- Campo Email ----- //
                         _buildLabelField(
                           label: 'E-mail',
-                          value: 'davi.ribeiro@sempreceub.com',
+                          value: 'exemplo@email.com',
                         ),
 
                         const SizedBox(height: 10.0),
@@ -122,10 +55,18 @@ class ProfilePage extends StatelessWidget {
                         // ----- Campo Senha ----- //
                         _buildLabelField(
                           label: 'Senha',
-                          value: '**********',
+                          value: '*********',
                         ),
 
-                        const SizedBox(height: 30.0),
+                        const SizedBox(height: 10.0),
+
+                        // ----- Campo Nome ----- //
+                        _buildLabelField(
+                          label: 'Nome',
+                          value: 'Exemplo',
+                        ),
+
+                        const SizedBox(height: 20.0),
 
                         // ----- Botão atualizar dados ----- //
                         ElevatedButton(
@@ -375,7 +316,7 @@ class ProfilePage extends StatelessWidget {
     );
   }
 
-  // ----- Função para campos de texto reutilizáveis, como ps dados de usuário ----- //
+  // ----- Função para campos de texto reutilizáveis, como os dados de usuário ----- //
   Widget _buildLabelField({required String label, required String value}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
