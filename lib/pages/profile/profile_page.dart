@@ -5,8 +5,16 @@ import '../../common/buttons/buttons.dart';
 import '../../common/constants/app_colors.dart';
 import '../../common/constants/app_text_styles.dart';
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
+
+  @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +91,7 @@ class ProfilePage extends StatelessWidget {
                                 context: context,
                                 builder: (BuildContext context) {
                                   return SizedBox(
-                                    height: 350,
+                                    height: 400,
                                     child: Column(
                                       children: [
                                         // ----- Ícone de fechar o modal ----- //
@@ -122,6 +130,7 @@ class ProfilePage extends StatelessWidget {
                                               const SizedBox(height: 5.0),
 
                                               TextFormField(
+                                                controller: emailController,
                                                 decoration: getInputDecoration(
                                                     "Insira o novo email"),
                                                 validator: (String? value) {
@@ -135,6 +144,28 @@ class ProfilePage extends StatelessWidget {
                                                     return "O email não é válido";
                                                   }
                                                   return null;
+                                                },
+                                              ),
+
+                                              const SizedBox(height: 10.0),
+
+                                              // ----- Botão de atualizar o email ----- //
+                                              ElevatedButton(
+                                                style: atualizarDados,
+                                                child: Text(
+                                                  "Atualizar email",
+                                                  style: AppTextStyles
+                                                      .emailSenha
+                                                      .copyWith(
+                                                    color:
+                                                        AppColors.textoBranco,
+                                                  ),
+                                                ),
+                                                onPressed: () async {
+                                                  AutenticacaoServico()
+                                                      .atualizaEmail(
+                                                          emailController
+                                                              as String);
                                                 },
                                               ),
 
@@ -155,6 +186,7 @@ class ProfilePage extends StatelessWidget {
                                               const SizedBox(height: 5.0),
 
                                               TextFormField(
+                                                controller: passwordController,
                                                 decoration: InputDecoration(
                                                   labelText:
                                                       "Insira a nova senha",
@@ -227,20 +259,21 @@ class ProfilePage extends StatelessWidget {
                                           ),
                                         ),
 
-                                        const SizedBox(height: 20.0),
+                                        const SizedBox(height: 10.0),
 
-                                        // ----- Botão de atualizar os dados inceridos ----- //
+                                        // ----- Botão de atualizar a senha ----- //
                                         ElevatedButton(
                                           style: atualizarDados,
                                           child: Text(
-                                            "Atualizar",
+                                            "Atualizar senha",
                                             style: AppTextStyles.emailSenha
                                                 .copyWith(
                                               color: AppColors.textoBranco,
                                             ),
                                           ),
-                                          onPressed: () {
-                                            Navigator.pop(context);
+                                          onPressed: () async {
+                                            AutenticacaoServico().atualizaSenha(
+                                                passwordController as String);
                                           },
                                         ),
                                       ],

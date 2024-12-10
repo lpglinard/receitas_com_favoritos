@@ -114,11 +114,11 @@ class _HomePageState extends State<HomePage> {
                               children: [
                                 Text('Procurar receitas',
                                     style: TextStyle(
-                                        color: AppColors.gradienteClaro)
-                                ),
+                                        color: AppColors.gradienteClaro)),
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
-                                  child: Icon(Icons.search, color: AppColors.gradienteClaro),
+                                  child: Icon(Icons.search,
+                                      color: AppColors.gradienteClaro),
                                 ),
                               ],
                             ),
@@ -217,7 +217,8 @@ class _HomePageState extends State<HomePage> {
                                         const SizedBox(height: 10.0),
                                         Text("Ingredientes",
                                             style: TextStyle(
-                                              color: AppColors.gradienteEscuro,
+                                                color:
+                                                    AppColors.gradienteEscuro,
                                                 fontWeight: FontWeight.bold,
                                                 fontSize: 20)),
                                         ListView.builder(
@@ -242,7 +243,8 @@ class _HomePageState extends State<HomePage> {
                                           },
                                         ),
                                         Padding(
-                                          padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
+                                          padding: const EdgeInsets.fromLTRB(
+                                              30, 0, 30, 0),
                                           child: Align(
                                             alignment: Alignment.bottomRight,
                                             child: IconButton(
@@ -252,7 +254,8 @@ class _HomePageState extends State<HomePage> {
                                                 },
                                                 icon: Icon(
                                                   Icons.share,
-                                                  color: AppColors.gradienteClaro,
+                                                  color:
+                                                      AppColors.gradienteClaro,
                                                   size: 35,
                                                 )),
                                           ),

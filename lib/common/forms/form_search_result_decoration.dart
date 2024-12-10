@@ -24,7 +24,8 @@ InputDecoration getSearchResultDecoration(String label) {
         borderSide: const BorderSide(color: Colors.red),
         borderRadius: BorderRadius.circular(10),
       ),
-      prefixIcon: const Icon(Icons.search,
-        color: AppColors.cinzaClaro,)
-  );
+      prefixIcon: const Icon(
+        Icons.search,
+        color: AppColors.cinzaClaro,
+      ));
 }

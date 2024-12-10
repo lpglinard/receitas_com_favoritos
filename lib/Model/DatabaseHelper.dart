@@ -7,13 +7,17 @@ import 'package:prato_do_dia_app/Model/Receipt.dart';
 
 class DatabaseHelper3 extends ChangeNotifier {
   DatabaseHelper3();
+
   DatabaseHelper3.privateConstructor();
-  static final DatabaseHelper3 instance=DatabaseHelper3.privateConstructor();
+
+  static final DatabaseHelper3 instance = DatabaseHelper3.privateConstructor();
   static Database? _Database;
-  Future<Database> get database async=>_Database ??=await _initDatabase();
-  Future<Database> _initDatabase()async{
-    Directory documentsDirectory=await getApplicationDocumentsDirectory();
-    String path=join(documentsDirectory.path,'receiptsFav1.db');
+
+  Future<Database> get database async => _Database ??= await _initDatabase();
+
+  Future<Database> _initDatabase() async {
+    Directory documentsDirectory = await getApplicationDocumentsDirectory();
+    String path = join(documentsDirectory.path, 'receiptsFav1.db');
     return await openDatabase(
       path,
       version: 2,
@@ -32,22 +36,24 @@ class DatabaseHelper3 extends ChangeNotifier {
       ''');
   }
 
-  Future<List<Receipt>>getReceipts()async{
-    Database db=await instance.database;
-    var receipts=await db.query('receiptsFav1',orderBy: 'Name');
-    List<Receipt> receipLlist=receipts.isNotEmpty ? receipts.map((e) => Receipt.fromMap(e)).toList() :  [];
+  Future<List<Receipt>> getReceipts() async {
+    Database db = await instance.database;
+    var receipts = await db.query('receiptsFav1', orderBy: 'Name');
+    List<Receipt> receipLlist = receipts.isNotEmpty
+        ? receipts.map((e) => Receipt.fromMap(e)).toList()
+        : [];
     return receipLlist;
   }
 
-  Future<int> add(Receipt receipt)async{
-    Database db= await instance.database;
+  Future<int> add(Receipt receipt) async {
+    Database db = await instance.database;
     notifyListeners();
     return await db.insert('receiptsFav1', receipt.toMap());
   }
 
-  Future<int>remove(int id)async{
-    Database db=await instance.database;
+  Future<int> remove(int id) async {
+    Database db = await instance.database;
     notifyListeners();
-    return await db.delete('receiptsFav1',where: 'id = ?',whereArgs: [id]);
+    return await db.delete('receiptsFav1', where: 'id = ?', whereArgs: [id]);
   }
 }

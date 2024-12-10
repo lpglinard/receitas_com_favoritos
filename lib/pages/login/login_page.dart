@@ -21,7 +21,8 @@ class _LoginPageState extends State<LoginPage> {
   final _formkey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _senhaController = TextEditingController();
-  final TextEditingController _senhaNovamenteController = TextEditingController();
+  final TextEditingController _senhaNovamenteController =
+      TextEditingController();
   final TextEditingController _nomeController = TextEditingController();
   final AutenticacaoServico _autenticacaoServico = AutenticacaoServico();
 

@@ -85,5 +85,4 @@ class DefaultFirebaseOptions {
     storageBucket: 'prato-do-dia-15876.firebasestorage.app',
     measurementId: 'G-BYGN3RG7Z0',
   );
-
 }

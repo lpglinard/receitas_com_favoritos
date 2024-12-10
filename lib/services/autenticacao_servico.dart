@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 class AutenticacaoServico {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+
   get user => null;
 
   // ----- Método para cadastrar novos usuários ----- //
@@ -27,40 +28,30 @@ class AutenticacaoServico {
   }
 
   // ----- Método para atualizar email ----- //
-  Future<String?> atualizaEmail({
-    required String email,
-  }) async {
+  Future<void> atualizaEmail(String email) async {
     try {
-      UserCredential userCredential =
-      await user?.updateEmail(
-        email: email,
-      );
-      await userCredential.user!.updateDisplayName(email);
-      return null;
-    } on FirebaseAuthException catch (e) {
-      if (e.code == "email-already-in-use") {
-        return "Email já cadastrado";
+      User? user = FirebaseAuth.instance.currentUser;
+      if (user != null) {
+        await user.updateEmail(email);
+        await user.reload();
+        user = FirebaseAuth.instance.currentUser;
+        print("Email atualizado com sucesso!");
       }
-      return "Erro desconhecido";
+    } catch (e) {
+      print("Erro ao atualizar email: $e");
     }
   }
 
   // ----- Método para atualizar senha ----- //
-  Future<String?> atualizaSenha({
-    required String senha,
-  }) async {
+  Future<void> atualizaSenha(String senha) async {
     try {
-      UserCredential userCredential =
-      await user?.updateEmail(
-        email: senha,
-      );
-      await userCredential.user!.updateDisplayName(senha);
-      return null;
-    } on FirebaseAuthException catch (e) {
-      if (e.code == "email-already-in-use") {
-        return "Senha já cadastrada";
+      User? user = FirebaseAuth.instance.currentUser;
+      if (user != null) {
+        await user.updatePassword(senha);
+        print("Senha atualizada com sucesso!");
       }
-      return "Erro desconhecido";
+    } catch (e) {
+      print("Erro ao atualizar senha: $e");
     }
   }
 
@@ -81,5 +72,21 @@ class AutenticacaoServico {
   // ----- Método para deslogar usuários logados ----- //
   Future<void> deslogar() async {
     return _firebaseAuth.signOut();
+  }
+
+  // ----- Método para reautenticação do firebase ----- //
+  Future<void> reautenticaUsuario(String email, String password) async {
+    try {
+      User? user = FirebaseAuth.instance.currentUser;
+      if (user != null) {
+        AuthCredential credential =
+            EmailAuthProvider.credential(email: email, password: password);
+        await user.reauthenticateWithCredential(credential);
+        print("Reautenticação bem-sucedida!");
+      }
+    } catch (e) {
+      print("Erro na reautenticação: $e");
+      throw e; // Opcional, para informar o erro na UI
+    }
   }
 }

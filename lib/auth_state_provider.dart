@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 class AuthState with ChangeNotifier {
   User? _user;
+
   User? get user => _user;
 
   bool get isAuthenticated => _user != null;

@@ -9,12 +9,9 @@ class SplashPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:
-      Column(children: [
+      body: Column(children: [
         Expanded(
-          child: Stack(
-              alignment: Alignment.center,
-              children: [
+          child: Stack(alignment: Alignment.center, children: [
             // ----- Background da metade superior da tela ----- //
             Container(
               alignment: Alignment.center,
@@ -31,31 +28,27 @@ class SplashPage extends StatelessWidget {
             ),
 
             // ----- Conteúdo da metade superior da tela ----- //
-            Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-
+            Column(mainAxisAlignment: MainAxisAlignment.center, children: [
               // ----- Imagem de chpaéu de chefe ----- //
-              Image.asset('assets/images/chapeu.png',
+              Image.asset(
+                'assets/images/chapeu.png',
                 height: 79,
                 width: 79,
               ),
 
-                  const SizedBox(height: 12.0),
+              const SizedBox(height: 12.0),
 
               // ----- Texto da imagem ----- //
-              Text('+ 2.3 Milhões de receitas',
-                style: AppTextStyles.subtituloBold.copyWith(color: AppColors.textoBranco),
+              Text(
+                '+ 2.3 Milhões de receitas',
+                style: AppTextStyles.subtituloBold
+                    .copyWith(color: AppColors.textoBranco),
               ),
             ]),
           ]),
         ),
-
         Expanded(
-          child: Stack(
-              alignment: Alignment.center,
-              children: [
-
+          child: Stack(alignment: Alignment.center, children: [
             // ----- Backgprund da metade inferior da tela ----- //
             Container(
               alignment: Alignment.center,
@@ -79,7 +72,8 @@ class SplashPage extends StatelessWidget {
                 child: Text(
                   "PraTo do Dia",
                   textAlign: TextAlign.center,
-                  style: AppTextStyles.titulo.copyWith(color: AppColors.textoBranco),
+                  style: AppTextStyles.titulo
+                      .copyWith(color: AppColors.textoBranco),
                 ),
               ),
               // ----- Subtítulo/Texto introdutório ----- //
@@ -88,7 +82,8 @@ class SplashPage extends StatelessWidget {
                 child: Text(
                   "\nUma forma simples de encontrar\na receita perfeita\n",
                   textAlign: TextAlign.center,
-                  style: AppTextStyles.subtitulo.copyWith(color: AppColors.textoBranco),
+                  style: AppTextStyles.subtitulo
+                      .copyWith(color: AppColors.textoBranco),
                 ),
               ),
 
@@ -97,7 +92,8 @@ class SplashPage extends StatelessWidget {
               // ----- Botão de Login ----- //
               ElevatedButton(
                 style: comecar,
-                child: Text("Começar",
+                child: Text(
+                  "Começar",
                   style: AppTextStyles.subtituloBotao
                       .copyWith(color: AppColors.textoBranco),
                 ),
@@ -111,17 +107,16 @@ class SplashPage extends StatelessWidget {
               // ----- Badge de Placeholder da Edamam ----- //
               Container(
                 alignment: Alignment.center,
-                child: Image.asset('assets/images/Edamam_Badge_Transparent.png',
+                child: Image.asset(
+                  'assets/images/Edamam_Badge_Transparent.png',
                   height: 34,
-                  width: 170,),
+                  width: 170,
+                ),
               ),
-            ]
-            ),
-          ]
-          ),
+            ]),
+          ]),
         ),
-      ]
-      ),
+      ]),
     );
   }
 }

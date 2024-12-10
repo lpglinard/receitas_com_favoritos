@@ -16,21 +16,20 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider<AuthState>(
-            create: (_) => AuthState()),
-      ], child:
-      Consumer<AuthState>(
+        ChangeNotifierProvider<AuthState>(create: (_) => AuthState()),
+      ],
+      child: Consumer<AuthState>(
         builder: (BuildContext context, AuthState value, Widget? child) {
           return MaterialApp(
-          home: value.isAuthenticated ? const SearchPage() : SplashPage(),
-          routes: {
-            '/login': (context) => const Autenticador(),
-            '/home': (context) => const HomePage(),
-            '/pesquisar': (context) => const SearchPage(),
-            '/favorites': (context) => const FavoritesPage(),
-            '/profile': (context) => const ProfilePage(),
-          },
-        );
+            home: value.isAuthenticated ? const HomePage() : SplashPage(),
+            routes: {
+              '/login': (context) => const Autenticador(),
+              '/home': (context) => const HomePage(),
+              '/pesquisar': (context) => const SearchPage(),
+              '/favorites': (context) => const FavoritesPage(),
+              '/profile': (context) => const ProfilePage(),
+            },
+          );
         },
       ),
     );
